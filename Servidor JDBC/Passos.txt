@@ -1,0 +1,8 @@
+Startar o XAMPP
+
+instalar b4j
+abrir o servidor
+jogar o mysql-connector-java-5.1.28 para a pasta(biblioteca) do b4j
+inicia o servidor
+TEstar o servidor JDBC
+http://localhost:17178/test

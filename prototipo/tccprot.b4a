@@ -1,0 +1,295 @@
+﻿Build1=Default,b4a.example
+File1=buttonMenu.png
+File10=catt1.png
+File11=dog1.png
+File12=dog10.png
+File13=dog11.png
+File14=dog2.png
+File15=dog3.png
+File16=dog33.png
+File17=dog4.png
+File18=dog410.png
+File19=dog44.png
+File2=Cad_PET.bal
+File20=dog6.png
+File21=dog7.png
+File22=dog9.png
+File23=dogg1.png
+File24=doguinho1.png
+File25=doguinho3.png
+File26=doguinhotelainicial.png
+File27=EditarPerfil.bal
+File28=EditarPET.bal
+File29=Feed.bal
+File3=Cad_Usu.bal
+File30=imgfaleconosco2.jpg
+File31=Lista_PET.bal
+File32=ListaDesap.bal
+File33=Login.bal
+File34=logo.jpg
+File35=pata inferior certa.png
+File36=pet2.jpg
+File37=question.png
+File38=TCClogo.png
+File39=Viz_Desap.bal
+File4=CadDesap.bal
+File5=cat1.png
+File6=cat3.png
+File7=cat4.png
+File8=cat5.png
+File9=cat6.png
+FileGroup1=Default Group
+FileGroup10=Default Group
+FileGroup11=Default Group
+FileGroup12=Default Group
+FileGroup13=Default Group
+FileGroup14=Default Group
+FileGroup15=Default Group
+FileGroup16=Default Group
+FileGroup17=Default Group
+FileGroup18=Default Group
+FileGroup19=Default Group
+FileGroup2=Default Group
+FileGroup20=Default Group
+FileGroup21=Default Group
+FileGroup22=Default Group
+FileGroup23=Default Group
+FileGroup24=Default Group
+FileGroup25=Default Group
+FileGroup26=Default Group
+FileGroup27=Default Group
+FileGroup28=Default Group
+FileGroup29=Default Group
+FileGroup3=Default Group
+FileGroup30=Default Group
+FileGroup31=Default Group
+FileGroup32=Default Group
+FileGroup33=Default Group
+FileGroup34=Default Group
+FileGroup35=Default Group
+FileGroup36=Default Group
+FileGroup37=Default Group
+FileGroup38=Default Group
+FileGroup39=Default Group
+FileGroup4=Default Group
+FileGroup5=Default Group
+FileGroup6=Default Group
+FileGroup7=Default Group
+FileGroup8=Default Group
+FileGroup9=Default Group
+Group=Default Group
+IconFile=
+Library1=core
+Library2=randomaccessfile
+Library3=okhttputils2
+Library4=stringfunctions
+Library5=reflection
+Library6=phone
+Library7=animation
+Library8=gps
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="26"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~SetApplicationAttribute(android:theme, "@style/LightTheme")~\n~CreateResource(values-v20, theme.xml,~\n~<resources>~\n~    <style~\n~        name="LightTheme" parent="@android:style/Theme.Material.Light">~\n~    </style>~\n~</resources>~\n~)~\n~CreateResource(values-v14, theme.xml,~\n~<resources>~\n~    <style~\n~        name="LightTheme" parent="@android:style/Theme.Holo.Light">~\n~    </style>~\n~</resources>~\n~)~\n~'End of default text.~\n~
+Module1=Starter
+Module10=DBRequestManager
+Module11=Tela_Feed
+Module12=SDCalendarDialog
+Module13=SlideMenu
+Module2=Tela_CadDesap
+Module3=Tela_EditarPET
+Module4=Tela_CadUsu
+Module5=Tela_ListarPET
+Module6=Tela_VizDesap
+Module7=Tela_ListarDesap
+Module8=Tela_EditarPerfil
+Module9=Tela_CadPET
+NumberOfFiles=39
+NumberOfLibraries=8
+NumberOfModules=13
+Version=8.3
+@EndOfDesignText@
+    #Region  Project Attributes 
+	#ApplicationLabel: PET Desaparecido
+	#VersionCode: 1
+	#VersionName: 
+	'SupportedOrientations possible values: unspecified, landscape or portrait.
+	#SupportedOrientations: unspecified
+	#CanInstallToExternalStorage: False
+	
+	'#AdditionalRes: C:\B4a\anywheresoftwarer\b4a\objects, com.jeremyfeinstein.slidingmenu.lib
+#End Region
+
+#Region  Activity Attributes 
+	#FullScreen: False
+	#IncludeTitle:False
+#End Region
+
+Sub Process_Globals
+	'These global variables will be declared once when the application starts.
+	'These variables can be accessed from all modules.
+	Type DBResult (Tag As Object, Columns As Map, Rows As List)
+	Type DBCommand (Name As String, Parameters() As Object)
+	Private const rdcLink As String = "http://10.10.10.101:17178/rdc"
+	Dim item_name, exportrdcLink As String
+	exportrdcLink = rdcLink
+	Dim logado As Boolean
+	Dim CodigoCidade As String
+	Dim Usu_Cod,CodDesap,CodigoPet  As Int
+	
+End Sub
+
+Sub Globals
+	'These global variables will be redeclared each time the activity is created.
+	'These variables can only be accessed from this module.
+
+	Private edtLogin As EditText
+
+
+	Private edtSenha As EditText
+	Private edtEsq As EditText
+	Private Panel4 As Panel
+End Sub
+
+Sub Activity_Create(FirstTime As Boolean)
+	'Do not forget to load the layout file created with the visual designer. For example:
+	Activity.LoadLayout("Login")
+
+End Sub
+
+Sub Activity_Resume
+logado = False
+End Sub
+
+Sub Activity_Pause (UserClosed As Boolean)
+
+End Sub
+
+
+Sub CreateRequest As DBRequestManager
+	Dim req As DBRequestManager
+	req.Initialize(Me, rdcLink)
+	Return req
+End Sub
+
+Sub CreateCommand(Name As String, Parameters() As Object) As DBCommand
+	Dim cmd As DBCommand
+	cmd.Initialize
+	cmd.Name = Name
+	If Parameters <> Null Then cmd.Parameters = Parameters
+	Return cmd
+End Sub
+
+Sub LocalizarUsuario (login As String, senha As String)
+	Dim req As DBRequestManager = CreateRequest
+	Dim cmd As DBCommand = CreateCommand("LocalizarUsuario", Array(login,senha))
+	Wait For (req.ExecuteQuery(cmd, 0, Null)) JobDone(j As HttpJob)
+	ProgressDialogShow("Carregando...")
+	If j.Success Then
+		req.HandleJobAsync(j, "req")
+		Wait For (req) req_Result(res As DBResult)
+		'work with result		
+		req.PrintTable(res)	
+		'
+	
+		Dim login_ok As Boolean	
+		If res.Rows.Size =1 Then
+			login_ok=True
+			
+			'Pega o código do usuario
+			For Each row() As Object In res.Rows
+				 Usu_Cod= row(0)
+				 
+			Next
+			
+		Else 
+				login_ok=False
+		End If
+			
+	Else
+		Log("ERROR: " & j.ErrorMessage)
+	End If
+	j.Release
+	ProgressDialogHide
+	If login_ok = True Then
+		logado = True
+		StartActivity("Tela_Feed")
+		edtLogin.Text=""
+		edtSenha.Text=""		
+	Else
+		logado = False
+		Msgbox("Usuário ou senha Incorreta","PETS")
+	End If
+	
+	
+	
+End Sub
+
+Sub btnVizu_Desap_Click
+	StartActivity("Tela_Feed")
+End Sub
+
+Sub btnEntrar_Click
+	'Verifica se o usuário está cadastrado, se sim chama a Tela_Feed
+	'StartActivity("Tela_Feed")
+	LocalizarUsuario(edtLogin.Text, edtSenha.Text)
+	
+	
+End Sub
+
+Sub btnCadastrar_Click
+	StartActivity("Tela_CadUsu")
+	
+End Sub
+
+Sub btnEsqueceu_Click
+	Panel4. Visible = True
+End Sub
+
+Sub EsqueceuSenha (login As String)
+	Dim req As DBRequestManager = CreateRequest
+	Dim cmd As DBCommand = CreateCommand("EsqueceuSenha", Array(login))
+	Wait For (req.ExecuteQuery(cmd, 0, Null)) JobDone(j As HttpJob)
+	ProgressDialogShow("Carregando...")
+	If j.Success Then
+		req.HandleJobAsync(j, "req")
+		Wait For (req) req_Result(res As DBResult)
+		'work with result		
+		req.PrintTable(res)	
+		'
+	
+		'Dim login_ok As Boolean	
+		If res.Rows.Size =1 Then
+			'login_ok=True
+			
+			'Pega o código do usuario
+			For Each row() As Object In res.Rows
+				 Msgbox("Sua senha é " & row(4), "PETS") 
+				 
+			Next
+			
+			edtEsq.Text = ""
+			Panel4.Visible = False
+		Else 
+				Msgbox("login não encontrado","Pets")
+				edtEsq.RequestFocus
+		End If
+			
+	Else
+		Log("ERROR: " & j.ErrorMessage)
+	End If
+	j.Release
+	ProgressDialogHide
+	
+	
+	
+End Sub
+
+Sub btnOK_Click
+	
+	
+	EsqueceuSenha(edtEsq.Text)
+	
+End Sub
+
+Sub btnCancel_Click
+	edtEsq.Text = ""
+	Panel4.Visible = False
+End Sub
